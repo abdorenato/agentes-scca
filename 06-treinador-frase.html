@@ -1,20 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Treinador de Frase · Sua Carreira Começa Agora</title>
-<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px}</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 64px}
+.app{width:100%;max-width:640px}
+.header{text-align:center;margin-bottom:32px;padding-top:16px}
+.tag{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px}
+h1{font-size:22px;font-weight:600;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.sub{font-size:14px;color:#666;line-height:1.6}
+.pb{height:3px;background:#e0e0e0;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.pf{height:100%;background:#1a1a2e;border-radius:2px;transition:width .4s ease}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.ct{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
+.cq{font-size:16px;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.ch{font-size:13px;color:#999;line-height:1.5;margin-bottom:14px;font-style:italic}
+textarea{width:100%;font-size:14px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:12px;resize:vertical;outline:none;transition:border-color .15s;line-height:1.6;min-height:80px}
+textarea:focus{border-color:#1a1a2e}
+textarea::placeholder{color:#bbb}
+input[type=text]{width:100%;font-size:16px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#1a1a2e}
+.br{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+button{font-size:14px;font-family:inherit;padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#333;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#f0f0f0}
+button:active{transform:scale(.98)}
+button.p{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+button.p:hover{opacity:.85}
+.load{text-align:center;padding:48px 20px}
+.load p{font-size:14px;color:#888}
+.dots::after{content:'';animation:dt 1.4s infinite}
+@keyframes dt{0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'}}
+.res{animation:fi .4s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sec{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.sl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:10px}
+.st{font-size:14px;color:#222;line-height:1.75}
+.forig{background:#f8f8f6;border-radius:8px;padding:14px;font-size:14px;color:#888;line-height:1.6;font-style:italic;margin-bottom:8px}
+.fnova{background:#fff;border:2px solid #1a1a2e;border-radius:8px;padding:16px;font-size:16px;color:#1a1a2e;line-height:1.6;font-weight:600;margin-bottom:16px}
+.score-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.sp{text-align:center;padding:14px 8px;background:#f8f8f6;border-radius:8px}
+.sn{font-size:22px;font-weight:600;color:#1a1a2e}
+.slb{font-size:11px;color:#888;margin-top:2px}
+.prob{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #eee;font-size:14px;color:#222;line-height:1.6}
+.prob:last-child{border-bottom:none}
+.muda{padding:10px 0;border-bottom:1px solid #eee}
+.muda:last-child{border-bottom:none}
+.mde{font-size:12px;color:#aaa;text-decoration:line-through;margin-bottom:2px}
+.mpa{font-size:13px;color:#222}
+.mpo{font-size:12px;color:#888;margin-top:2px;font-style:italic}
+.bdg{display:inline-block;font-size:11px;background:#f0f0f0;color:#888;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.rr{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+</style>
 </head>
 <body>
-<div style="max-width:640px;width:100%;background:#fff;border-radius:12px;padding:48px 32px;text-align:center;border:1px solid #e8e8e8">
-  <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:16px">Sua Carreira Começa Agora · E6</div>
-  <h1 style="font-size:22px;font-weight:600;color:#1a1a2e;margin-bottom:12px">Treinador de Frase</h1>
-  <p style="font-size:14px;color:#666;line-height:1.6;margin-bottom:32px">Este agente está sendo carregado.<br>Por favor aguarde ou recarregue a página.</p>
-  <div id="status" style="font-size:13px;color:#aaa">Carregando agente...</div>
+<div class="app">
+  <div class="header">
+    <span class="tag">Sua Carreira Começa Agora · E6</span>
+    <h1>Treinador de frase</h1>
+    <p class="sub">Escreve sua frase de apresentação.<br>O agente faz o papel do mercado — e te diz o que não está funcionando.</p>
+  </div>
+  <div id="main"></div>
 </div>
 <script>
-// Placeholder — substitua pelo código completo do widget
-document.getElementById('status').textContent = 'Agente Treinador de Frase — Em breve';
+let step='nome',nome='',area='',frase='',fraseR='',iter=1,historico=[];
+function render(){const m=document.getElementById('main');if(step==='nome')rNome(m);else if(step==='ctx')rCtx(m);else if(step==='frase')rFrase(m);else if(step==='analisando')m.innerHTML='<div class="load"><p>Analisando sua frase<span class="dots"></span></p><p style="font-size:12px;color:#aaa;margin-top:8px">O mercado está lendo...</p></div>';}
+function rNome(m){m.innerHTML='';const c=document.createElement('div');c.className='card';c.innerHTML='<div class="ct">Antes de começar</div><div class="cq" style="margin-bottom:14px">Qual é o seu nome?</div><input type="text" id="inp" placeholder="Escreve aqui..." autocomplete="off">';m.appendChild(c);const r=document.createElement('div');r.className='br';const b=document.createElement('button');b.className='p';b.textContent='Continuar';b.onclick=()=>{const v=document.getElementById('inp').value.trim();if(!v)return;nome=v;step='ctx';render();};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function rCtx(m){m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:15%"></div>';m.appendChild(pb);const c=document.createElement('div');c.className='card';c.innerHTML='<div class="ct">Contexto</div><div class="cq">Qual é a sua área de formação ou atuação?</div><div class="ch">Isso ajuda o agente a avaliar se o diferencial faz sentido no seu contexto.</div><input type="text" id="inp" placeholder="Ex: administração, engenharia, design...">';m.appendChild(c);const r=document.createElement('div');r.className='br';const b=document.createElement('button');b.className='p';b.textContent='Continuar';b.onclick=()=>{const v=document.getElementById('inp').value.trim();if(!v)return;area=v;step='frase';render();};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function rFrase(m){m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:35%"></div>';m.appendChild(pb);if(iter>1){const bdg=document.createElement('div');bdg.className='bdg';bdg.textContent=`Versão ${iter} — refinando`;m.appendChild(bdg);}const c=document.createElement('div');c.className='card';if(iter===1){c.innerHTML='<div class="ct">Sua frase de apresentação</div><div class="cq">Escreve sua frase no formato:</div><div style="background:#f8f8f6;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:14px;font-weight:600;color:#1a1a2e">"Eu ajudo [quem] a [resolver o quê] de uma forma que [diferencial]."</div><div class="ch">Não precisa estar perfeita — precisa ser honesta. Se travar, coloca "?" onde não sabe ainda.</div><textarea id="inp" placeholder="Eu ajudo..."></textarea>';}else{c.innerHTML=`<div class="ct">Refine com base no feedback</div><div class="cq">Agora que você viu o diagnóstico, reescreve a frase:</div><div class="forig">"${fraseR}"</div><textarea id="inp">${fraseR}</textarea>`;}m.appendChild(c);const r=document.createElement('div');r.className='br';if(iter>1){const bk=document.createElement('button');bk.textContent='Ver último diagnóstico';bk.onclick=()=>{step='resultado';render();};r.appendChild(bk);}const b=document.createElement('button');b.className='p';b.textContent='Analisar frase';b.onclick=()=>{const v=document.getElementById('inp').value.trim();if(v.length<10){document.getElementById('inp').focus();return;}frase=v;step='analisando';render();analisar();};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function rRes(dados){const m=document.getElementById('main');m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:100%"></div>';m.appendChild(pb);const bdg=document.createElement('div');bdg.className='bdg';bdg.textContent=`Análise ${iter} — ${area}`;m.appendChild(bdg);const res=document.createElement('div');res.className='res';const sr=document.createElement('div');sr.className='score-row';sr.innerHTML=`<div class="sp"><div class="sn">${dados.quem}/10</div><div class="slb">Quem</div></div><div class="sp"><div class="sn">${dados.problema}/10</div><div class="slb">Problema</div></div><div class="sp"><div class="sn">${dados.diferencial}/10</div><div class="slb">Diferencial</div></div>`;res.appendChild(sr);const fc=document.createElement('div');fc.className='sec';fc.innerHTML=`<div class="sl">Sua frase</div><div class="forig">"${frase}"</div><div class="sl" style="margin-top:14px">Versão refinada</div><div class="fnova">"${dados.frase_refinada}"</div>`;res.appendChild(fc);if(dados.problemas&&dados.problemas.length){const pc=document.createElement('div');pc.className='sec';pc.innerHTML='<div class="sl">O que o mercado não entendeu</div>';dados.problemas.forEach(p=>{const d=document.createElement('div');d.className='prob';d.innerHTML=`<div style="min-width:18px">→</div><div>${p}</div>`;pc.appendChild(d);});res.appendChild(pc);}if(dados.mudancas&&dados.mudancas.length){const mc=document.createElement('div');mc.className='sec';mc.innerHTML='<div class="sl">O que mudou e por quê</div>';dados.mudancas.forEach(m_=>{const d=document.createElement('div');d.className='muda';d.innerHTML=`<div class="mde">${m_.de}</div><div class="mpa">${m_.para}</div><div class="mpo">${m_.por}</div>`;mc.appendChild(d);});res.appendChild(mc);}const mx=document.createElement('div');mx.className='sec';mx.innerHTML=`<div class="sl">O que ainda pode melhorar</div><div class="st">${dados.pode_melhorar}</div>`;res.appendChild(mx);m.appendChild(res);fraseR=dados.frase_refinada;const rr=document.createElement('div');rr.className='rr';rr.innerHTML=`<button onclick="iter++;step='frase';render()">Refinar mais</button><button onclick="step='nome';nome='';area='';frase='';fraseR='';iter=1;historico=[];render()">Começar do zero</button>`;m.appendChild(rr);}
+async function analisar(){historico.push(frase);const ht=historico.length>1?`\n\nVersions anteriores:\n${historico.slice(0,-1).map((h,i)=>`V${i+1}: "${h}"`).join('\n')}`:'';const prompt=`Recrutador sênior analisando frase de apresentação de estudante universitário.\n\nNome: ${nome}\nÁrea: ${area}\nIteração: ${iter}\nFrase: "${frase}"${ht}\n\nAvalie cada elemento (0-10): quem (quão específico), problema (quão clara a dor), diferencial (quão único e crível).\n\nJSON válido sem markdown:\n{"quem":número,"problema":número,"diferencial":número,"frase_refinada":"versão melhorada no formato Eu ajudo...","problemas":["o que o mercado não entendeu — máx 3"],"mudancas":[{"de":"trecho original","para":"como ficou","por":"por que funciona melhor"}],"pode_melhorar":"o que ainda pode trabalhar"}`;
+try{const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:900,messages:[{role:"user",content:prompt}]})});const d=await r.json();const t=d.content.map(i=>i.text||'').join('');const p=JSON.parse(t.replace(/```json|```/g,'').trim());step='resultado';rRes(p);}catch(e){document.getElementById('main').innerHTML='<div class="card"><div class="cq">Algo deu errado. Tenta de novo.</div></div><div class="rr"><button onclick="step=\'analisando\';render();analisar()">Tentar novamente</button></div>';}}
+render();
 </script>
 </body>
 </html>

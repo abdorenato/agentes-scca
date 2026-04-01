@@ -1,20 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coach de Acompanhamento · Sua Carreira Começa Agora</title>
-<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 16px}</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 64px}
+.app{width:100%;max-width:640px}
+.header{text-align:center;margin-bottom:32px;padding-top:16px}
+.tag{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px}
+h1{font-size:22px;font-weight:600;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.sub{font-size:14px;color:#666;line-height:1.6}
+.pb{height:3px;background:#e0e0e0;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.pf{height:100%;background:#1a1a2e;border-radius:2px;transition:width .4s ease}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.ct{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
+.cq{font-size:16px;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.ch{font-size:13px;color:#999;line-height:1.5;margin-bottom:14px;font-style:italic}
+textarea{width:100%;font-size:14px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:12px;resize:vertical;outline:none;transition:border-color .15s;line-height:1.6;min-height:120px}
+textarea:focus{border-color:#1a1a2e}
+textarea::placeholder{color:#bbb}
+input[type=text]{width:100%;font-size:16px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#1a1a2e}
+.br{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+button{font-size:14px;font-family:inherit;padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#333;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#f0f0f0}
+button:active{transform:scale(.98)}
+button.p{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+button.p:hover{opacity:.85}
+.load{text-align:center;padding:48px 20px}
+.load p{font-size:14px;color:#888}
+.dots::after{content:'';animation:dt 1.4s infinite}
+@keyframes dt{0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'}}
+.res{animation:fi .4s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sec{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.sl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:10px}
+.st{font-size:14px;color:#222;line-height:1.75}
+.carta-box{background:#f8f8f6;border-radius:8px;padding:14px;font-size:14px;color:#666;line-height:1.75;font-style:italic;border-left:3px solid #ddd}
+.tl{display:flex;gap:0;margin-bottom:24px}
+.tli{flex:1;text-align:center;position:relative}
+.tli:not(:last-child)::after{content:'';position:absolute;top:14px;left:50%;right:-50%;height:1px;background:#e8e8e8;z-index:0}
+.tlc{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;margin:0 auto 6px;position:relative;z-index:1}
+.tlc.done{background:#1a1a2e;color:#fff}
+.tlc.active{background:#fff;color:#1a1a2e;border:2px solid #1a1a2e}
+.tlc.todo{background:#f0f0f0;color:#aaa;border:1px solid #e8e8e8}
+.tll{font-size:11px;color:#aaa}
+.tll.active{color:#1a1a2e;font-weight:600}
+.hbtn{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#fff;border:1px solid #e8e8e8;border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s;margin-bottom:8px}
+.hbtn:hover{border-color:#1a1a2e;background:#f8f8f6}
+.hbl{display:flex;flex-direction:column;gap:2px}
+.hbt{font-size:15px;font-weight:600;color:#1a1a2e}
+.hbs{font-size:12px;color:#888}
+.arrow{font-size:14px;color:#aaa}
+.bdg{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:3px 10px;border-radius:20px;background:#f0f0f0;color:#888;margin-bottom:12px}
+.conq{display:flex;gap:10px;padding:8px 0;font-size:14px;color:#222;line-height:1.6}
+.acao{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #eee;font-size:14px;color:#222;line-height:1.6}
+.acao:last-child{border-bottom:none}
+.an{font-size:13px;font-weight:600;color:#aaa;min-width:20px}
+.alerta{background:#f8f8f6;border-radius:8px;padding:12px 14px;border-left:3px solid #BA7517;font-size:14px;color:#222;line-height:1.65}
+.rr{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.cmi{background:#f8f8f6;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#888;line-height:1.65;font-style:italic;border-left:3px solid #ddd}
+.cmi-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:6px}
+</style>
 </head>
 <body>
-<div style="max-width:640px;width:100%;background:#fff;border-radius:12px;padding:48px 32px;text-align:center;border:1px solid #e8e8e8">
-  <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:16px">Sua Carreira Começa Agora · E8</div>
-  <h1 style="font-size:22px;font-weight:600;color:#1a1a2e;margin-bottom:12px">Coach de Acompanhamento</h1>
-  <p style="font-size:14px;color:#666;line-height:1.6;margin-bottom:32px">Este agente está sendo carregado.<br>Por favor aguarde ou recarregue a página.</p>
-  <div id="status" style="font-size:13px;color:#aaa">Carregando agente...</div>
+<div class="app">
+  <div class="header">
+    <span class="tag">Sua Carreira Começa Agora · E8</span>
+    <h1>Coach de acompanhamento</h1>
+    <p class="sub">Escreva sua carta de 90 dias agora.<br>Volte em 30, 60 e 90 dias para ver o que mudou.</p>
+  </div>
+  <div id="main"></div>
 </div>
 <script>
-// Placeholder — substitua pelo código completo do widget
-document.getElementById('status').textContent = 'Agente Coach de Acompanhamento — Em breve';
+const SK='scca_coach_v1';
+let step='init',nome='',carta='',acao48h='',momento=0,respostas={},qIdx=0;
+
+async function salvar(d){try{await window.storage.set(SK,JSON.stringify(d));}catch(e){localStorage.setItem(SK,JSON.stringify(d));}}
+async function carregar(){try{const r=await window.storage.get(SK);return r?JSON.parse(r.value):null;}catch(e){const r=localStorage.getItem(SK);return r?JSON.parse(r):null;}}
+
+async function init(){const d=await carregar();if(d&&d.nome&&d.carta){nome=d.nome;carta=d.carta;acao48h=d.acao48h||'';momento=d.momento||0;step='home_retorno';}else{step='home';}render();}
+
+const pergs={1:[{q:'A ação que você comprometeu nas 48 horas — você fez? O que aconteceu?',h:'Sem julgamento. Fez ou não fez, o que importa é o que isso diz.'},{q:'Das 3 coisas que você escreveu na carta, o que avançou — mesmo que pouco?',h:'Qualquer movimento conta. Pensa em decisões, conversas, hábitos, clareza.'},{q:'O que ainda está exatamente igual — e por quê?',h:'O que está impedindo? Tempo, medo, prioridade, clareza?'},{q:'O que você descobriu sobre si mesmo nesses 30 dias que não estava na carta?',h:'Algo que apareceu que você não esperava.'}],2:[{q:'Releu a carta. O que te surpreendeu — pra bem ou pra mal?',h:'O que parece mais distante? O que parece mais próximo?'},{q:'Das 3 coisas que você escreveu, o que de fato aconteceu nos últimos 60 dias?',h:'Pode ser parcialmente. Descreve o que foi real.'},{q:'O que acelerou no seu caminho — e o que travou mais do que esperava?',h:'Pensa em decisões, oportunidades, drenos, relações.'},{q:'Se você reescrevesse a carta hoje, o que mudaria?',h:'O que você sabe agora que não sabia quando escreveu?'}],3:[{q:'Chegaram os 90 dias. Das 3 coisas que você escreveu — o que de fato aconteceu?',h:'O que aconteceu, o que não aconteceu e o que foi diferente do esperado.'},{q:'O que você construiu nesses 3 meses que não estava previsto na carta?',h:'Decisões, habilidades, relações, clareza, projetos — qualquer coisa real.'},{q:'Qual foi o momento mais difícil — e o que ele te ensinou?',h:'Pode ser uma decisão, uma conversa, uma percepção.'},{q:'Se você fosse escrever a carta dos próximos 90 dias agora, o que escreveria?',h:'Pensa no que você sabe sobre si mesmo hoje que não sabia 3 meses atrás.'}]};
+
+function render(){const m=document.getElementById('main');if(step==='init')m.innerHTML='<div class="load"><p>Carregando<span class="dots"></span></p></div>';else if(step==='home')rHome(m);else if(step==='nome')rNome(m);else if(step==='carta')rCarta(m);else if(step==='salvando')m.innerHTML='<div class="load"><p>Salvando<span class="dots"></span></p></div>';else if(step==='carta_salva')rCartaSalva(m);else if(step==='home_retorno')rHomeRetorno(m);else if(step==='checkin')rCheckin(m);else if(step==='analisando')m.innerHTML='<div class="load"><p>Analisando sua evolução<span class="dots"></span></p><p style="font-size:12px;color:#aaa;margin-top:8px">Comparando com a carta original</p></div>';}
+
+function rHome(m){m.innerHTML='';const c=document.createElement('div');c.className='card';c.innerHTML='<div class="ct">Como funciona</div><div style="display:flex;flex-direction:column;gap:12px;margin-top:4px"><div style="display:flex;gap:10px"><div style="width:24px;height:24px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">1</div><div style="font-size:14px;color:#666;line-height:1.6">Você escreve a carta de 90 dias — 3 fatos escritos como se já tivessem acontecido</div></div><div style="display:flex;gap:10px"><div style="width:24px;height:24px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">2</div><div style="font-size:14px;color:#666;line-height:1.6">Em 30 dias você volta e responde perguntas sobre o que mudou. Mesmo em 60 e 90 dias.</div></div><div style="display:flex;gap:10px"><div style="width:24px;height:24px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">3</div><div style="font-size:14px;color:#666;line-height:1.6">O agente compara o que você comprometeu com o que de fato aconteceu.</div></div></div>';m.appendChild(c);const r=document.createElement('div');r.className='br';r.style.justifyContent='center';const b=document.createElement('button');b.className='p';b.textContent='Escrever minha carta';b.onclick=()=>{step='nome';render();};r.appendChild(b);m.appendChild(r);}
+
+function rNome(m){m.innerHTML='';const c=document.createElement('div');c.className='card';c.innerHTML='<div class="ct">Antes de começar</div><div class="cq" style="margin-bottom:14px">Qual é o seu nome?</div><input type="text" id="inp" placeholder="Escreve aqui..." autocomplete="off">';m.appendChild(c);const r=document.createElement('div');r.className='br';const b=document.createElement('button');b.className='p';b.textContent='Continuar';b.onclick=()=>{const v=document.getElementById('inp').value.trim();if(!v)return;nome=v;step='carta';render();};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+
+function rCarta(m){m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:30%"></div>';m.appendChild(pb);const c1=document.createElement('div');c1.className='card';c1.innerHTML=`<div class="ct">A carta de 90 dias</div><div class="cq">Escreve pra você mesmo — como se fosse daqui a 90 dias</div><div class="ch">Descreve 3 coisas que aconteceram. Não desejos — fatos. Escreva no passado.<br><br>Exemplo: "Nos últimos 90 dias, eu tomei a decisão X que estava pendente. Coloquei o plano de visibilidade em prática. Reduzi o principal dreno de energia da minha semana."</div><textarea id="carta" placeholder="Nos últimos 90 dias, eu...">${carta}</textarea>`;m.appendChild(c1);const c2=document.createElement('div');c2.className='card';c2.innerHTML=`<div class="ct">Ação nas próximas 48 horas</div><div class="cq" style="font-size:14px;margin-bottom:10px">Uma ação concreta que representa o novo padrão. Começa com um verbo.</div><textarea id="acao" style="min-height:60px" placeholder="Ex: Escrever a primeira versão da minha frase de posicionamento...">${acao48h}</textarea>`;m.appendChild(c2);const r=document.createElement('div');r.className='br';const b=document.createElement('button');b.className='p';b.textContent='Salvar minha carta';b.onclick=async()=>{const c=document.getElementById('carta').value.trim();const a=document.getElementById('acao').value.trim();if(c.length<20){document.getElementById('carta').focus();return;}carta=c;acao48h=a;step='salvando';render();await salvar({nome,carta,acao48h,momento:0,data:new Date().toISOString()});setTimeout(()=>{step='carta_salva';render();},1000);};r.appendChild(b);m.appendChild(r);}
+
+function rCartaSalva(m){m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:100%"></div>';m.appendChild(pb);const c=document.createElement('div');c.className='card';c.innerHTML=`<div class="ct">Carta salva</div><div class="cq" style="margin-bottom:12px">Sua carta está guardada, ${nome}.</div><div class="carta-box">${carta}</div>${acao48h?`<div style="margin-top:12px;padding:12px;background:#f8f8f6;border-radius:8px;font-size:13px;color:#666"><strong style="color:#1a1a2e">Ação nas 48h:</strong> ${acao48h}</div>`:''}`;m.appendChild(c);const info=document.createElement('div');info.className='sec';info.innerHTML='<div class="sl">Próximos retornos</div><div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px solid #eee"><span>Check-in de 30 dias</span><span style="color:#aaa">Volte em 30 dias</span></div><div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px solid #eee"><span>Check-in de 60 dias</span><span style="color:#aaa">Volte em 60 dias</span></div><div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0"><span>Check-in de 90 dias</span><span style="color:#aaa">Volte em 90 dias</span></div></div>';m.appendChild(info);const r=document.createElement('div');r.className='br';r.style.justifyContent='center';const b=document.createElement('button');b.className='p';b.textContent='Fazer o check-in agora';b.onclick=()=>{step='home_retorno';render();};r.appendChild(b);m.appendChild(r);}
+
+function tlBadge(atual){const d=document.createElement('div');d.className='tl';[{n:1,l:'Carta'},{n:2,l:'30 dias'},{n:3,l:'60 dias'},{n:4,l:'90 dias'}].forEach((e,i)=>{const it=document.createElement('div');it.className='tli';const ci=document.createElement('div');ci.className=`tlc ${e.n<atual?'done':e.n===atual?'active':'todo'}`;ci.textContent=e.n<atual?'✓':e.n;const lb=document.createElement('div');lb.className=`tll ${e.n===atual?'active':''}`;lb.textContent=e.l;it.appendChild(ci);it.appendChild(lb);d.appendChild(it);});return d;}
+
+function rHomeRetorno(m){m.innerHTML='';m.appendChild(tlBadge(momento+1));const cc=document.createElement('div');cc.className='card';cc.innerHTML=`<div class="ct">Sua carta original</div><div class="carta-box">${carta}</div>${acao48h?`<div style="margin-top:10px;font-size:13px;color:#aaa"><strong style="color:#666">Ação comprometida:</strong> ${acao48h}</div>`:''}`;m.appendChild(cc);[{idx:1,t:'Check-in de 30 dias',s:'O que já mudou — e o que ainda está igual'},{idx:2,t:'Check-in de 60 dias',s:'A metade do caminho — o que acelerou ou travou'},{idx:3,t:'Check-in de 90 dias',s:'Chegou a hora — o que de fato aconteceu'}].forEach(b=>{const d=document.createElement('div');d.className='hbtn';const feito=b.idx<momento;d.innerHTML=`<div class="hbl"><div class="hbt" style="${feito?'color:#aaa':''}">${b.t} ${feito?'✓':''}</div><div class="hbs">${b.s}</div></div><div class="arrow">→</div>`;d.onclick=()=>{momento=b.idx;qIdx=0;respostas={};step='checkin';render();};m.appendChild(d);});const er=document.createElement('div');er.style.cssText='text-align:center;margin-top:16px';const eb=document.createElement('button');eb.textContent='Reescrever a carta';eb.style.fontSize='13px';eb.onclick=()=>{step='carta';render();};er.appendChild(eb);m.appendChild(er);}
+
+function rCheckin(m){m.innerHTML='';const ps=pergs[momento];const pct=Math.round((qIdx/ps.length)*85)+10;const pb=document.createElement('div');pb.className='pb';pb.innerHTML=`<div class="pf" style="width:${pct}%"></div>`;m.appendChild(pb);const bdg=document.createElement('div');bdg.className='bdg';bdg.textContent=`Check-in de ${momento*30} dias · ${qIdx+1} de ${ps.length}`;m.appendChild(bdg);if(qIdx===0){const cm=document.createElement('div');cm.className='cmi';cm.innerHTML=`<div class="cmi-lbl">Sua carta original</div>${carta}`;m.appendChild(cm);}const p=ps[qIdx];const c=document.createElement('div');c.className='card';c.innerHTML=`<div class="cq">${p.q}</div><div class="ch">${p.h}</div><textarea id="resp" style="min-height:90px" placeholder="Escreve com honestidade...">${respostas[qIdx]||''}</textarea>`;m.appendChild(c);const r=document.createElement('div');r.className='br';if(qIdx>0){const bk=document.createElement('button');bk.textContent='Voltar';bk.onclick=()=>{qIdx--;render();};r.appendChild(bk);}else{const cn=document.createElement('button');cn.textContent='Cancelar';cn.onclick=()=>{step='home_retorno';render();};r.appendChild(cn);}const isLast=qIdx===ps.length-1;const b=document.createElement('button');b.className='p';b.textContent=isLast?'Ver análise':'Próxima';b.onclick=()=>{const v=document.getElementById('resp').value.trim();if(v.length<5){document.getElementById('resp').focus();return;}respostas[qIdx]=v;if(isLast){step='analisando';render();analisarCheckin();}else{qIdx++;render();}};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('resp')&&document.getElementById('resp').focus(),50);}
+
+function rResCheckin(dados){const m=document.getElementById('main');m.innerHTML='';const pb=document.createElement('div');pb.className='pb';pb.innerHTML='<div class="pf" style="width:100%"></div>';m.appendChild(pb);const bdg=document.createElement('div');bdg.className='bdg';bdg.textContent=`Análise do check-in de ${momento*30} dias`;m.appendChild(bdg);const res=document.createElement('div');res.className='res';const lr=document.createElement('div');lr.className='sec';lr.innerHTML=`<div class="sl">O que os ${momento*30} dias revelaram</div><div class="st">${dados.leitura}</div>`;res.appendChild(lr);if(dados.conquistas&&dados.conquistas.length){const cc=document.createElement('div');cc.className='sec';cc.innerHTML='<div class="sl">O que avançou de verdade</div>';dados.conquistas.forEach(c=>{const d=document.createElement('div');d.className='conq';d.innerHTML=`<div style="min-width:18px">→</div><div>${c}</div>`;cc.appendChild(d);});res.appendChild(cc);}if(dados.alerta){const ac=document.createElement('div');ac.className='sec';ac.innerHTML=`<div class="sl">O que merece atenção</div><div class="alerta">${dados.alerta}</div>`;res.appendChild(ac);}const pc=document.createElement('div');pc.className='sec';pc.innerHTML=`<div class="sl">O padrão que está operando</div><div class="st">${dados.padrao}</div>`;res.appendChild(pc);const nx=document.createElement('div');nx.className='sec';nx.innerHTML='<div class="sl">O que fazer agora</div>';dados.proximos_passos.forEach((p,i)=>{const d=document.createElement('div');d.className='acao';d.innerHTML=`<div class="an">${i+1}</div><div>${p}</div>`;nx.appendChild(d);});res.appendChild(nx);const pq=document.createElement('div');pq.className='sec';pq.innerHTML=`<div class="sl">Uma pergunta pra carregar</div><div class="st" style="font-style:italic">${dados.pergunta}</div>`;res.appendChild(pq);m.appendChild(res);const rr=document.createElement('div');rr.className='rr';if(momento<3){const nb=document.createElement('button');nb.className='p';nb.textContent=`Avançar para o check-in de ${(momento+1)*30} dias`;nb.onclick=async()=>{const nm=momento+1;await salvar({nome,carta,acao48h,momento:nm,data:new Date().toISOString()});momento=nm;step='home_retorno';render();};rr.appendChild(nb);}const hb=document.createElement('button');hb.textContent='Voltar ao início';hb.onclick=()=>{step='home_retorno';render();};rr.appendChild(hb);m.appendChild(rr);}
+
+async function analisarCheckin(){const ps=pergs[momento];const qr=ps.map((p,i)=>`P: ${p.q}\nR: ${respostas[i]||'(sem resposta)'}`).join('\n\n');const prompt=`Coach de desenvolvimento pessoal acompanhando universitário ao longo do tempo. Compare o comprometido com o que aconteceu.\n\nNome: ${nome}\nCarta original:\n"${carta}"\nAção comprometida nas 48h: "${acao48h}"\nMomento: ${momento*30} dias depois\n\nRespostas do check-in:\n${qr}\n\nFale com a pessoa pelo nome. Linguagem próxima, honesta.\n\nJSON válido sem markdown:\n{"leitura":"2 parágrafos comparando comprometido vs acontecido","conquistas":["coisa que avançou 1","coisa que avançou 2","coisa que avançou 3"],"alerta":"algo específico que merece atenção","padrao":"1 parágrafo sobre o padrão que ficou evidente","proximos_passos":["ação 1","ação 2","ação 3"],"pergunta":"uma pergunta poderosa pra carregar"}`;
+try{const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});const d=await r.json();const t=d.content.map(i=>i.text||'').join('');const p=JSON.parse(t.replace(/```json|```/g,'').trim());step='resultado_checkin';rResCheckin(p);}catch(e){document.getElementById('main').innerHTML='<div class="card"><div class="cq">Algo deu errado. Tenta de novo.</div></div><div class="rr"><button onclick="step=\'analisando\';render();analisarCheckin()">Tentar novamente</button></div>';}}
+
+init();
 </script>
 </body>
 </html>
