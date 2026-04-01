@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Padrão · Sua Carreira Começa Agora</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 64px}
+.app{width:100%;max-width:640px}
+.header{text-align:center;margin-bottom:32px;padding-top:16px}
+.header-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px}
+.header h1{font-size:22px;font-weight:600;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.header p{font-size:14px;color:#666;line-height:1.6}
+.progress-bar{height:3px;background:#e0e0e0;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.progress-fill{height:100%;background:#1a1a2e;border-radius:2px;transition:width .4s ease}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.card-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
+.card-q{font-size:16px;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.card-hint{font-size:13px;color:#999;line-height:1.5;margin-bottom:14px;font-style:italic}
+textarea{width:100%;font-size:14px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:12px;resize:vertical;outline:none;transition:border-color .15s;line-height:1.6;min-height:90px}
+textarea:focus{border-color:#1a1a2e}
+textarea::placeholder{color:#bbb}
+input[type=text]{width:100%;font-size:16px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#1a1a2e}
+.btn-row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+button{font-size:14px;font-family:inherit;padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#333;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#f0f0f0}
+button:active{transform:scale(.98)}
+button.primary{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+button.primary:hover{opacity:.85}
+.loading{text-align:center;padding:48px 20px}
+.loading p{font-size:14px;color:#888}
+.loading-dots::after{content:'';animation:dots 1.4s infinite}
+@keyframes dots{0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'}}
+.result{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.result-header{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:24px;margin-bottom:12px;text-align:center}
+.padrao-badge{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:4px 12px;border-radius:20px;margin-bottom:12px;background:#f0f0f0;color:#666}
+.padrao-nome{font-size:24px;font-weight:600;color:#1a1a2e;margin-bottom:8px}
+.padrao-sub{font-size:14px;color:#666;line-height:1.6}
+.result-section{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.result-section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:10px}
+.result-section-text{font-size:14px;color:#222;line-height:1.75}
+.restart-row{text-align:center;margin-top:24px}
+.restart-row button{font-size:13px;color:#888}
+.name-step{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:24px;margin-bottom:12px}
+.name-step label{display:block;font-size:14px;color:#666;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-tag">Sua Carreira Começa Agora</div>
+    <h1>Qual padrão está operando em você?</h1>
+    <p>5 perguntas sobre decisões reais da sua vida.<br>Você recebe um diagnóstico personalizado.</p>
+  </div>
+  <div id="main"></div>
+</div>
+<script>
+const perguntas=[{num:"Pergunta 1 de 5",texto:"Pensa numa decisão importante que você tomou nos últimos 6 meses — sobre curso, estágio, projeto ou relacionamento. O que te levou a tomar essa decisão? Descreve o raciocínio que você usou na hora."},{num:"Pergunta 2 de 5",texto:"Tem alguma decisão que você está adiando agora? O que está esperando para decidir — e há quanto tempo isso está pendente?"},{num:"Pergunta 3 de 5",texto:"Quando você pensa nas escolhas que fez nos últimos meses, você diria que elas foram mais para expandir quem você é — ou para confirmar quem você já acredita que é? Dá um exemplo."},{num:"Pergunta 4 de 5",texto:"Já tomou uma decisão para não decepcionar alguém — e depois percebeu que não era o que você queria de verdade? Como foi isso?"},{num:"Pergunta 5 de 5",texto:"O que você diria que mais te impede de agir mais rápido nas decisões da sua vida? Pode ser honesta — não tem resposta certa."}];
+let step='name',nome='',respostas=[],currentQ=0;
+function render(){const main=document.getElementById('main');if(step==='name')renderName(main);else if(step==='questions')renderQuestion(main);else if(step==='loading')renderLoading(main);else if(step==='result')return;}
+function renderName(main){main.innerHTML='';const div=document.createElement('div');div.className='name-step';div.innerHTML='<label>Qual é o seu nome?</label><input type="text" id="nome-input" placeholder="Escreve aqui..." autocomplete="off">';main.appendChild(div);const btnRow=document.createElement('div');btnRow.className='btn-row';const btn=document.createElement('button');btn.className='primary';btn.textContent='Começar';btn.onclick=()=>{const val=document.getElementById('nome-input').value.trim();if(!val){document.getElementById('nome-input').focus();return;}nome=val;step='questions';currentQ=0;respostas=[];render();};btnRow.appendChild(btn);main.appendChild(btnRow);document.getElementById('nome-input').addEventListener('keydown',e=>{if(e.key==='Enter')btn.click();});setTimeout(()=>document.getElementById('nome-input')&&document.getElementById('nome-input').focus(),50);}
+function renderQuestion(main){main.innerHTML='';const prog=document.createElement('div');prog.className='progress-bar';prog.innerHTML=`<div class="progress-fill" style="width:${(currentQ/5)*100}%"></div>`;main.appendChild(prog);const q=perguntas[currentQ];const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="card-tag">${q.num}</div><div class="card-q">${q.texto}</div><textarea id="resp-input" placeholder="Escreve com calma — não precisa ser perfeito, precisa ser honesto..."></textarea>`;main.appendChild(card);const btnRow=document.createElement('div');btnRow.className='btn-row';if(currentQ>0){const back=document.createElement('button');back.textContent='Voltar';back.onclick=()=>{currentQ--;respostas.pop();render();};btnRow.appendChild(back);}const next=document.createElement('button');next.className='primary';next.textContent=currentQ===4?'Ver meu diagnóstico':'Próxima';next.onclick=()=>{const val=document.getElementById('resp-input').value.trim();if(val.length<10){document.getElementById('resp-input').style.borderColor='#e24b4a';document.getElementById('resp-input').focus();return;}respostas.push(val);if(currentQ===4){step='loading';render();analisar();}else{currentQ++;render();}};btnRow.appendChild(next);main.appendChild(btnRow);setTimeout(()=>{const ta=document.getElementById('resp-input');if(ta){ta.focus();ta.value=respostas[currentQ]||'';}},50);}
+function renderLoading(main){main.innerHTML='<div class="loading"><p>Analisando suas respostas<span class="loading-dots"></span></p><p style="font-size:12px;color:#aaa;margin-top:8px">Isso leva alguns segundos</p></div>';}
+function renderResult(main,dados){main.innerHTML='';const prog=document.createElement('div');prog.className='progress-bar';prog.innerHTML='<div class="progress-fill" style="width:100%"></div>';main.appendChild(prog);const resultDiv=document.createElement('div');resultDiv.className='result';resultDiv.innerHTML=`<div class="result-header"><div class="padrao-badge">Seu padrão dominante</div><div class="padrao-nome">${dados.padrao}</div><div class="padrao-sub">${dados.resumo}</div></div><div class="result-section"><div class="result-section-label">Como esse padrão opera na sua vida</div><div class="result-section-text">${dados.como_opera}</div></div><div class="result-section"><div class="result-section-label">O custo invisível</div><div class="result-section-text">${dados.custo}</div></div><div class="result-section"><div class="result-section-label">O que observar esta semana</div><div class="result-section-text">${dados.observar}</div></div><div class="result-section"><div class="result-section-label">Uma pergunta pra você</div><div class="result-section-text" style="font-style:italic">${dados.pergunta}</div></div>`;main.appendChild(resultDiv);const restartRow=document.createElement('div');restartRow.className='restart-row';const restartBtn=document.createElement('button');restartBtn.textContent='Fazer de novo';restartBtn.onclick=()=>{step='name';nome='';respostas=[];currentQ=0;render();};restartRow.appendChild(restartBtn);main.appendChild(restartRow);}
+async function analisar(){const prompt=`Você é um especialista em padrões de decisão para jovens universitários. Analise as respostas abaixo e identifique o padrão dominante.\n\nOs três padrões possíveis são:\n1. URGÊNCIA — a pessoa está sempre em movimento, resolve tudo, mas raramente para pra perguntar "pra onde?".\n2. PARALISIA — a pessoa continua no que já funciona porque mudar exige revisão. Fica esperando clareza que não vem.\n3. DECISÃO PARA AGRADAR — a pessoa decide para manter uma imagem — dos outros ou dela mesma.\n\nNome: ${nome}\n\nRespostas:\n${perguntas.map((p,i)=>`Pergunta ${i+1}: ${p.texto}\nResposta: ${respostas[i]}`).join('\n\n')}\n\nResponda APENAS com um JSON válido, sem markdown:\n{\n"padrao": "nome do padrão",\n"resumo": "uma frase direta sobre como esse padrão aparece na vida dessa pessoa (máx 25 palavras)",\n"como_opera": "2 a 3 parágrafos curtos explicando como esse padrão opera na vida dela com base nas respostas",\n"custo": "1 parágrafo sobre o custo invisível desse padrão",\n"observar": "3 situações concretas pra ela observar esta semana",\n"pergunta": "uma única pergunta poderosa pra ela carregar"\n}`;
+try{const response=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});const data=await response.json();const text=data.content.map(i=>i.text||'').join('');const parsed=JSON.parse(text.replace(/```json|```/g,'').trim());step='result';const main=document.getElementById('main');renderResult(main,parsed);}catch(err){const main=document.getElementById('main');main.innerHTML='<div class="card"><div class="card-q">Algo deu errado. Tenta de novo.</div></div><div class="restart-row"><button onclick="step=\'questions\';currentQ=4;render()">Tentar novamente</button></div>';}}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+INSTRUCOES DE PUBLICACAO — AGENTES SCCA
+========================================
+
+Você tem 8 arquivos HTML prontos para publicar.
+Cada um é independente — sobe um por vez ou todos juntos.
+
+========================================
+OPÇÃO 1 — NETLIFY (RECOMENDADA, MAIS SIMPLES)
+========================================
+
+1. Acesse: https://netlify.com
+2. Crie uma conta gratuita (pode entrar com Google)
+3. Na tela inicial, arraste a PASTA "agentes" direto para o browser
+4. Pronto — o Netlify gera um link automático para cada arquivo
+
+Seus links vão ficar assim:
+  https://seusite.netlify.app/01-diagnostico-padrao.html
+  https://seusite.netlify.app/02-dois-futuros.html
+  ... e assim por diante
+
+Para personalizar o domínio (ex: agentes.renatoabdo.com):
+  - Va em "Domain settings" e configure o dominio proprio
+
+========================================
+OPÇÃO 2 — VERCEL (MAIS PROFISSIONAL)
+========================================
+
+1. Acesse: https://vercel.com
+2. Crie conta gratuita
+3. Instale o Vercel CLI:
+   npm install -g vercel
+
+4. No terminal, entre na pasta dos agentes:
+   cd /caminho/para/agentes
+
+5. Rode:
+   vercel
+
+6. Siga as instrucoes — em 2 minutos tem o link
+
+========================================
+OPÇÃO 3 — SEM INSTALAR NADA (GITHUB PAGES)
+========================================
+
+1. Crie conta em https://github.com
+2. Crie repositorio publico chamado "agentes-scca"
+3. Suba os 8 arquivos HTML
+4. Va em Settings > Pages > Source: main branch
+5. Link fica: https://seuusuario.github.io/agentes-scca/01-diagnostico-padrao.html
+
+========================================
+ORGANIZAÇÃO DOS LINKS PARA COMPARTILHAR
+========================================
+
+Agente 1 — Diagnóstico de padrão (E1 / Captação Instagram)
+  → 01-diagnostico-padrao.html
+
+Agente 2 — A técnica dos dois futuros (E2)
+  → 02-dois-futuros.html
+
+Agente 3 — Revisor de julgamento (E3)
+  → 03-revisor-julgamento.html
+
+Agente 4 — Pergunta invertida (E4)
+  → 04-pergunta-invertida.html
+
+Agente 5 — Check-in semanal de energia (E5)
+  → 05-checkin-energia.html
+
+Agente 6 — Treinador de frase (E6)
+  → 06-treinador-frase.html
+
+Agente 7 — Gerador de entrega (E7)
+  → 07-gerador-entrega.html
+
+Agente 8 — Coach de acompanhamento (E8)
+  → 08-coach-acompanhamento.html
+
+========================================
+DICA DE USO NO CURSO
+========================================
+
+- Agente 1: poste no Instagram como isca ANTES do curso
+- Agentes 2-7: envie o link no chat de cada encontro
+- Agente 8: envie no último encontro e peça pra guardar
+
+========================================
+IMPORTANTE
+========================================
+
+Os agentes usam a API da Anthropic.
+Enquanto voce acessa pelo Claude.ai, a API funciona automaticamente.
+Se subir em dominio proprio, precisara de uma API key propria:
+  https://console.anthropic.com
+
+Para obter a key:
+1. Crie conta em console.anthropic.com
+2. Va em API Keys > Create Key
+3. Insira a key nos arquivos HTML, substituindo o header da requisicao:
+   headers: {
+     "Content-Type": "application/json",
+     "x-api-key": "SUA_KEY_AQUI",
+     "anthropic-version": "2023-06-01"
+   }

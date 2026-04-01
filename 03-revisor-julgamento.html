@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisor de Julgamento · Sua Carreira Começa Agora</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 64px}
+.app{width:100%;max-width:640px}
+.header{text-align:center;margin-bottom:32px;padding-top:16px}
+.header-tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px}
+.header h1{font-size:22px;font-weight:600;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.header p{font-size:14px;color:#666;line-height:1.6}
+.progress-bar{height:3px;background:#e0e0e0;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.progress-fill{height:100%;background:#1a1a2e;border-radius:2px;transition:width .4s ease}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.card-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
+.card-q{font-size:16px;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.card-hint{font-size:13px;color:#999;line-height:1.5;margin-bottom:14px;font-style:italic}
+textarea{width:100%;font-size:14px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:12px;resize:vertical;outline:none;transition:border-color .15s;line-height:1.6}
+textarea:focus{border-color:#1a1a2e}
+textarea::placeholder{color:#bbb}
+input[type=text]{width:100%;font-size:16px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#1a1a2e}
+.btn-row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+button{font-size:14px;font-family:inherit;padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#333;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#f0f0f0}button:active{transform:scale(.98)}
+button.primary{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+button.primary:hover{opacity:.85}
+.loading{text-align:center;padding:48px 20px}
+.loading p{font-size:14px;color:#888}
+.loading-dots::after{content:'';animation:dots 1.4s infinite}
+@keyframes dots{0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'}}
+.chat-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.msg{max-width:88%}
+.msg.agente{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg-bubble{padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.65}
+.msg.agente .msg-bubble{background:#f0f0f0;color:#222;border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:#1a1a2e;color:#fff;border-bottom-right-radius:4px}
+.msg-label{font-size:11px;color:#aaa;margin-bottom:4px}
+.msg.user .msg-label{text-align:right}
+.input-area{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px}
+.result{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.verdict-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.verdict-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:10px}
+.verdict-text{font-size:14px;color:#222;line-height:1.75}
+.score-row{display:flex;gap:10px;margin-bottom:16px}
+.score-pill{flex:1;text-align:center;padding:14px 10px;background:#f8f8f6;border-radius:8px}
+.score-num{font-size:28px;font-weight:600;color:#1a1a2e}
+.score-lbl{font-size:11px;color:#888;margin-top:2px}
+.restart-row{text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <span class="header-tag">Sua Carreira Começa Agora · E3</span>
+    <h1>Você realmente pensa — ou só concorda?</h1>
+    <p>Cole um texto que você produziu com ajuda de IA.<br>O agente vai testar se você sustenta o que está escrito.</p>
+  </div>
+  <div id="main"></div>
+</div>
+<script>
+let step='nome',nome='',texto='',contexto='',perguntas=[],respostas=[],qAtual=0,historico=[];
+function render(){const m=document.getElementById('main');if(step==='nome')rNome(m);else if(step==='texto')rTexto(m);else if(step==='gerando')rLoad(m,'Lendo o texto e preparando perguntas','Isso leva alguns segundos');else if(step==='chat')rChat(m);else if(step==='analisando')rLoad(m,'Analisando suas respostas','Gerando diagnóstico');}
+function rLoad(m,l1,l2){m.innerHTML=`<div class="loading"><p>${l1}<span class="loading-dots"></span></p><p style="font-size:12px;color:#aaa;margin-top:8px">${l2}</p></div>`;}
+function rNome(m){m.innerHTML='';const c=document.createElement('div');c.className='card';c.innerHTML='<div class="card-tag">Antes de começar</div><div class="card-q" style="margin-bottom:14px">Qual é o seu nome?</div><input type="text" id="inp" placeholder="Escreve aqui..." autocomplete="off">';m.appendChild(c);const r=document.createElement('div');r.className='btn-row';const b=document.createElement('button');b.className='primary';b.textContent='Continuar';b.onclick=()=>{const v=document.getElementById('inp').value.trim();if(!v)return;nome=v;step='texto';render();};r.appendChild(b);m.appendChild(r);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function rTexto(m){m.innerHTML='';const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML='<div class="progress-fill" style="width:10%"></div>';m.appendChild(pb);const c=document.createElement('div');c.className='card';c.innerHTML='<div class="card-tag">O texto</div><div class="card-q">Cole aqui o texto que você produziu com ajuda de IA</div><div class="card-hint">Pode ser um parágrafo, um resumo, uma análise. Qualquer coisa que você gerou com IA.</div><textarea id="txt" style="min-height:140px" placeholder="Cole o texto aqui..."></textarea>';m.appendChild(c);const c2=document.createElement('div');c2.className='card';c2.innerHTML='<div class="card-tag">Contexto (opcional)</div><div class="card-q" style="font-size:14px;margin-bottom:10px">Pra qual finalidade você usou esse texto?</div><textarea id="ctx" style="min-height:60px" placeholder="Ex: trabalho da faculdade, e-mail profissional..."></textarea>';m.appendChild(c2);const r=document.createElement('div');r.className='btn-row';const b=document.createElement('button');b.className='primary';b.textContent='Começar o teste';b.onclick=()=>{const t=document.getElementById('txt').value.trim();if(t.length<30){document.getElementById('txt').focus();return;}texto=t;contexto=document.getElementById('ctx').value.trim();step='gerando';render();gerarPerguntas();};r.appendChild(b);m.appendChild(r);}
+function rChat(m){m.innerHTML='';const pct=Math.round(10+(qAtual/perguntas.length)*75);const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML=`<div class="progress-fill" style="width:${pct}%"></div>`;m.appendChild(pb);const info=document.createElement('div');info.style.cssText='font-size:12px;color:#aaa;margin-bottom:16px;text-align:right';info.textContent=`Pergunta ${qAtual+1} de ${perguntas.length}`;m.appendChild(info);const cw=document.createElement('div');cw.className='chat-wrap';historico.forEach(h=>{const msg=document.createElement('div');msg.className=`msg ${h.role}`;msg.innerHTML=`<div class="msg-label">${h.role==='agente'?'Agente':nome}</div><div class="msg-bubble">${h.text}</div>`;cw.appendChild(msg);});if(qAtual<perguntas.length){const msg=document.createElement('div');msg.className='msg agente';msg.innerHTML=`<div class="msg-label">Agente</div><div class="msg-bubble">${perguntas[qAtual]}</div>`;cw.appendChild(msg);}m.appendChild(cw);if(qAtual<perguntas.length){const ia=document.createElement('div');ia.className='input-area';const ta=document.createElement('textarea');ta.id='resp-inp';ta.style.minHeight='80px';ta.placeholder='Responde com suas próprias palavras...';ia.appendChild(ta);const r=document.createElement('div');r.className='btn-row';const b=document.createElement('button');b.className='primary';b.textContent=qAtual===perguntas.length-1?'Ver diagnóstico':'Responder';b.onclick=()=>{const v=ta.value.trim();if(v.length<10){ta.focus();return;}historico.push({role:'agente',text:perguntas[qAtual]});historico.push({role:'user',text:v});respostas.push({pergunta:perguntas[qAtual],resposta:v});qAtual++;if(qAtual>=perguntas.length){step='analisando';render();analisar();}else{render();setTimeout(()=>{const el=document.getElementById('resp-inp');if(el)el.focus();},80);}};r.appendChild(b);ia.appendChild(r);m.appendChild(ia);setTimeout(()=>{const el=document.getElementById('resp-inp');if(el)el.focus();},80);}}
+function rResultado(m,d){m.innerHTML='';const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML='<div class="progress-fill" style="width:100%"></div>';m.appendChild(pb);const res=document.createElement('div');res.className='result';const sr=document.createElement('div');sr.className='score-row';sr.innerHTML=`<div class="score-pill"><div class="score-num">${d.nivel}</div><div class="score-lbl">Nível</div></div><div class="score-pill"><div class="score-num">${d.pontos}/10</div><div class="score-lbl">Profundidade</div></div>`;res.appendChild(sr);[['O que o teste revelou',d.revelou],['Onde você sustentou bem',d.sustentou],['Onde você aceitou sem questionar',d.aceitou],['O que isso diz sobre seu uso de IA',d.uso_ia],['O que praticar agora',d.praticar]].forEach(([l,t])=>{const c=document.createElement('div');c.className='verdict-card';c.innerHTML=`<div class="verdict-label">${l}</div><div class="verdict-text">${t}</div>`;res.appendChild(c);});m.appendChild(res);const rr=document.createElement('div');rr.className='restart-row';const b=document.createElement('button');b.textContent='Testar outro texto';b.onclick=()=>{step='nome';nome='';texto='';contexto='';perguntas=[];respostas=[];qAtual=0;historico=[];render();};rr.appendChild(b);m.appendChild(rr);}
+async function gerarPerguntas(){const prompt=`Você é um professor rigoroso e justo que vai testar se um estudante realmente entende e sustenta um texto que produziu com ajuda de IA.\n\nNome: ${nome}\nContexto: ${contexto||'não informado'}\nTexto:\n"${texto}"\n\nGere exatamente 4 perguntas para testar o julgamento real. As perguntas devem ir além do texto, pedir exemplos e testar se a pessoa consegue defender o que está escrito.\n\nResponda APENAS com JSON válido:\n{"perguntas":["pergunta 1","pergunta 2","pergunta 3","pergunta 4"]}`;
+try{const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,messages:[{role:"user",content:prompt}]})});const d=await r.json();const t=d.content.map(i=>i.text||'').join('');const p=JSON.parse(t.replace(/```json|```/g,'').trim());perguntas=p.perguntas;qAtual=0;historico=[];step='chat';render();}catch(e){document.getElementById('main').innerHTML='<div class="card"><div class="card-q">Algo deu errado.</div></div><div class="restart-row"><button onclick="step=\'texto\';render()">Voltar</button></div>';}}
+async function analisar(){const qr=respostas.map((r,i)=>`P${i+1}: ${r.pergunta}\nR: ${r.resposta}`).join('\n\n');const prompt=`Avalie o julgamento de um estudante que produziu texto com IA.\n\nNome: ${nome}\nTexto original:\n"${texto}"\n\nPerguntas e respostas:\n${qr}\n\nAvalie com honestidade e construtividade. Fale com o estudante pelo nome.\n\nJSON válido:\n{"nivel":"Iniciante|Médio|Avançado|Crítico","pontos":número_0_10,"revelou":"2 parágrafos sobre como a pessoa usa IA","sustentou":"1 parágrafo sobre onde mostrou pensamento próprio","aceitou":"1 parágrafo sobre onde aceitou sem questionar","uso_ia":"1 parágrafo sobre o padrão de uso","praticar":"2 a 3 práticas concretas"}`;
+try{const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});const d=await r.json();const t=d.content.map(i=>i.text||'').join('');const p=JSON.parse(t.replace(/```json|```/g,'').trim());step='resultado';const m=document.getElementById('main');m.innerHTML='';const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML='<div class="progress-fill" style="width:100%"></div>';m.appendChild(pb);rResultado(m,p);}catch(e){document.getElementById('main').innerHTML='<div class="card"><div class="card-q">Algo deu errado.</div></div>';}}
+render();
+</script>
+</body>
+</html>

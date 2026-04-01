@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Técnica dos Dois Futuros · Sua Carreira Começa Agora</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f2;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 64px}
+.app{width:100%;max-width:640px}
+.header{text-align:center;margin-bottom:32px;padding-top:16px}
+.header-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:12px}
+.header h1{font-size:22px;font-weight:600;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.header p{font-size:14px;color:#666;line-height:1.6}
+.progress-bar{height:3px;background:#e0e0e0;border-radius:2px;margin-bottom:32px;overflow:hidden}
+.progress-fill{height:100%;background:#1a1a2e;border-radius:2px;transition:width .4s ease}
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.card-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.tag-a{color:#185FA5}.tag-b{color:#0F6E56}.tag-n{color:#aaa}
+.card-q{font-size:16px;color:#1a1a2e;line-height:1.5;margin-bottom:14px}
+.card-hint{font-size:13px;color:#999;line-height:1.5;margin-bottom:14px;font-style:italic}
+textarea{width:100%;font-size:14px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:12px;resize:vertical;outline:none;transition:border-color .15s;line-height:1.6;min-height:90px}
+textarea:focus{border-color:#1a1a2e}
+textarea::placeholder{color:#bbb}
+input[type=text]{width:100%;font-size:16px;font-family:inherit;color:#222;background:#f8f8f6;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;outline:none;transition:border-color .15s}
+input:focus{border-color:#1a1a2e}
+.btn-row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+button{font-size:14px;font-family:inherit;padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#333;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#f0f0f0}
+button:active{transform:scale(.98)}
+button.primary{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+button.primary:hover{opacity:.85}
+.loading{text-align:center;padding:48px 20px}
+.loading p{font-size:14px;color:#888}
+.loading-dots::after{content:'';animation:dots 1.4s infinite}
+@keyframes dots{0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'}}
+.result{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.secao{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;margin-bottom:12px}
+.secao-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:10px}
+.secao-text{font-size:14px;color:#222;line-height:1.75}
+.divider{display:flex;align-items:center;gap:12px;margin:8px 0 16px}
+.divider span{font-size:12px;font-weight:600;color:#aaa;white-space:nowrap}
+.divider hr{flex:1;border:none;border-top:1px solid #eee}
+.restart-row{text-align:center;margin-top:24px}
+.restart-row button{font-size:13px;color:#888}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-tag">Sua Carreira Começa Agora · E2</div>
+    <h1>A técnica dos dois futuros</h1>
+    <p>Você tem uma decisão travada. Vamos usar a imaginação<br>pra revelar o que você já sabe — e está evitando ver.</p>
+  </div>
+  <div id="main"></div>
+</div>
+<script>
+let step='nome',nome='',decisao='',respostas={},etapaIdx=0;
+const etapas=[{id:'nome',tipo:'nome'},{id:'decisao',tipo:'decisao'},{id:'a1',tipo:'cenario',cenario:'A',num:1,total:3,tag:'Cenário A — você escolhe o caminho atual',q:'Daqui a dois anos, se você mantiver o caminho que já está seguindo — como é o seu dia a dia?',hint:'Pensa com detalhe: o que você está fazendo? Com quem? Como você se sente acordando de manhã?'},{id:'a2',tipo:'cenario',cenario:'A',num:2,total:3,tag:'Cenário A — continuando',q:'O que essa versão de você conquistou até aqui — e o que ela abriu mão?',hint:'Não precisa ser uma lista. Escreve como vem.'},{id:'a3',tipo:'cenario',cenario:'A',num:3,total:3,tag:'Cenário A — última pergunta',q:'Quando você imagina essa versão de você daqui a dois anos — o que você sente?',hint:'Não filtra. O que vier primeiro.'},{id:'b1',tipo:'cenario',cenario:'B',num:1,total:3,tag:'Cenário B — você toma a decisão diferente',q:'Agora imagina que você tomou a outra decisão. Daqui a dois anos, como é o seu dia a dia nesse cenário?',hint:'Mesmo exercício: o que você está fazendo? Com quem? Como você se sente?'},{id:'b2',tipo:'cenario',cenario:'B',num:2,total:3,tag:'Cenário B — continuando',q:'O que essa versão conquistou — e o que ela abriu mão?',hint:'Escreve com honestidade. Toda escolha tem custo.'},{id:'b3',tipo:'cenario',cenario:'B',num:3,total:3,tag:'Cenário B — última pergunta',q:'Quando você imagina essa versão de você daqui a dois anos — o que você sente?',hint:'Medo e alinhamento andam juntos quando a decisão é real.'}];
+function prog(){return Math.round((etapaIdx/(etapas.length-1))*100);}
+function render(){const main=document.getElementById('main');if(step==='loading'){renderLoading(main);return;}if(step==='result')return;const e=etapas[etapaIdx];if(e.tipo==='nome')renderNome(main);else if(e.tipo==='decisao')renderDecisao(main);else if(e.tipo==='cenario')renderCenario(main,e);}
+function renderLoading(main){main.innerHTML='<div class="loading"><p>Lendo os dois futuros<span class="loading-dots"></span></p><p style="font-size:12px;color:#aaa;margin-top:8px">Alguns segundos</p></div>';}
+function renderNome(main){main.innerHTML='';const card=document.createElement('div');card.className='card';card.innerHTML='<div class="card-tag tag-n">Antes de começar</div><div class="card-q" style="margin-bottom:14px">Qual é o seu nome?</div><input type="text" id="inp" placeholder="Escreve aqui..." autocomplete="off">';main.appendChild(card);const row=document.createElement('div');row.className='btn-row';const btn=document.createElement('button');btn.className='primary';btn.textContent='Continuar';btn.onclick=()=>{const v=document.getElementById('inp').value.trim();if(!v)return;nome=v;etapaIdx=1;render();};row.appendChild(btn);main.appendChild(row);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function renderDecisao(main){main.innerHTML='';const prog_=document.createElement('div');prog_.className='progress-bar';prog_.innerHTML='<div class="progress-fill" style="width:5%"></div>';main.appendChild(prog_);const card=document.createElement('div');card.className='card';card.innerHTML='<div class="card-tag tag-n">A decisão</div><div class="card-q">Qual é a decisão que está travada na sua vida agora?</div><div class="card-hint">Pode ser pequena ou grande. Escreve em uma ou duas frases.</div><textarea id="inp" placeholder="Ex: se continuo no curso atual ou mudo, se aceito o estágio ou não..."></textarea>';main.appendChild(card);const row=document.createElement('div');row.className='btn-row';const btn=document.createElement('button');btn.className='primary';btn.textContent='Próxima';btn.onclick=()=>{const v=document.getElementById('inp').value.trim();if(v.length<5)return;decisao=v;etapaIdx=2;render();};row.appendChild(btn);main.appendChild(row);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function renderCenario(main,e){main.innerHTML='';const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML=`<div class="progress-fill" style="width:${prog()}%"></div>`;main.appendChild(pb);if(e.id==='b1'){const d=document.createElement('div');d.className='divider';d.innerHTML='<hr><span>Agora o Cenário B</span><hr>';main.appendChild(d);}const card=document.createElement('div');card.className='card';const tc=e.cenario==='A'?'tag-a':'tag-b';card.innerHTML=`<div class="card-tag ${tc}">${e.tag}</div><div class="card-q">${e.q}</div><div class="card-hint">${e.hint}</div><textarea id="inp" placeholder="Escreve com calma...">${respostas[e.id]||''}</textarea>`;main.appendChild(card);const row=document.createElement('div');row.className='btn-row';const back=document.createElement('button');back.textContent='Voltar';back.onclick=()=>{etapaIdx--;render();};row.appendChild(back);const isLast=etapaIdx===etapas.length-1;const btn=document.createElement('button');btn.className='primary';btn.textContent=isLast?'Ver o que isso revela':'Próxima';btn.onclick=()=>{const v=document.getElementById('inp').value.trim();if(v.length<10){document.getElementById('inp').style.borderColor='#e24b4a';document.getElementById('inp').focus();return;}respostas[e.id]=v;if(isLast){step='loading';render();analisar();}else{etapaIdx++;render();}};row.appendChild(btn);main.appendChild(row);setTimeout(()=>document.getElementById('inp')&&document.getElementById('inp').focus(),50);}
+function renderResult(dados){const main=document.getElementById('main');main.innerHTML='';const pb=document.createElement('div');pb.className='progress-bar';pb.innerHTML='<div class="progress-fill" style="width:100%"></div>';main.appendChild(pb);const res=document.createElement('div');res.className='result';res.innerHTML=`<div class="secao"><div class="secao-label">O que os seus dois futuros revelam</div><div class="secao-text">${dados.revelacao}</div></div><div class="secao"><div class="secao-label">O que o Cenário A diz sobre você</div><div class="secao-text">${dados.cenario_a}</div></div><div class="secao"><div class="secao-label">O que o Cenário B diz sobre você</div><div class="secao-text">${dados.cenario_b}</div></div><div class="secao"><div class="secao-label">O que você está evitando ver</div><div class="secao-text">${dados.evitando}</div></div><div class="secao"><div class="secao-label">Uma pergunta pra você carregar</div><div class="secao-text" style="font-style:italic">${dados.pergunta}</div></div>`;main.appendChild(res);const rr=document.createElement('div');rr.className='restart-row';const btn=document.createElement('button');btn.textContent='Fazer com outra decisão';btn.onclick=()=>{step='nome';nome='';decisao='';respostas={};etapaIdx=0;render();};rr.appendChild(btn);main.appendChild(rr);}
+async function analisar(){const prompt=`Você é um facilitador especializado em ajudar jovens universitários a tomar decisões com mais clareza. Você NÃO dá a resposta. Você revela o que a pessoa já sabe e está evitando ver.\n\nNome: ${nome}\nDecisão travada: ${decisao}\n\nRespostas do Cenário A:\n- Dia a dia em 2 anos: ${respostas.a1}\n- O que conquistou e abriu mão: ${respostas.a2}\n- O que sente ao imaginar: ${respostas.a3}\n\nRespostas do Cenário B:\n- Dia a dia em 2 anos: ${respostas.b1}\n- O que conquistou e abriu mão: ${respostas.b2}\n- O que sente ao imaginar: ${respostas.b3}\n\nFale com a pessoa pelo nome. Linguagem próxima, sem jargão.\n\nResponda APENAS com JSON válido, sem markdown:\n{"revelacao":"2 parágrafos sobre o que os dois futuros juntos revelam","cenario_a":"1 parágrafo sobre o que o cenário A revela sobre a pessoa","cenario_b":"1 parágrafo sobre o que o cenário B revela","evitando":"1 parágrafo direto sobre o que ela parece estar evitando ver","pergunta":"uma única pergunta poderosa pra ela carregar"}`;
+try{const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});const d=await r.json();const t=d.content.map(i=>i.text||'').join('');const p=JSON.parse(t.replace(/```json|```/g,'').trim());step='result';renderResult(p);}catch(e){document.getElementById('main').innerHTML='<div class="card"><div class="card-q">Algo deu errado. Tenta de novo.</div></div><div class="restart-row"><button onclick="step=\'loading\';render();analisar()">Tentar novamente</button></div>';}}
+render();
+</script>
+</body>
+</html>
